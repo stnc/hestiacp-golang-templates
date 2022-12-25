@@ -1,9 +1,9 @@
 #!/bin/bash
 
-user="$1"
-domain="$2"
-port="$3"
-aSservice="$4"
+user="$1" #hestia root user name
+domain="$2" # website domain name eg test.example.com
+port="$3" # the port that golang will use
+aSservice="$4" # name of golang service
 
 
 if [ ! -f "/lib/systemd/system/$aSservice.service" ]; then
