@@ -1,0 +1,13 @@
+[Unit]
+Description=goweb
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=5s
+EnvironmentFile=/home/admin/web/panel.example.com/public_html/.env
+ExecStart=/home/admin/web/panel.example.com/public_html/main
+WorkingDirectory=/home/admin/web/panel.example.com/public_html/
+
+[Install]
+WantedBy=multi-user.target
