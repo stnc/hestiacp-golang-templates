@@ -78,11 +78,11 @@ func main() {
 
 
 ```
-## BONUS (golang service and nginx port maker)
+# BONUS (golang service and nginx port maker)
 
 run `sudo sh golang_Service_Create_And_Nginx_Port.sh admin test.example.com 8080 goweb` 
 
-# parameter description
+## ssh parameter description
 
 user= hestia root user name
 
