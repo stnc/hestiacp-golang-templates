@@ -64,7 +64,7 @@ func main() {
 	*/
 }
 func fileCreatedNginxHst(portNumber int64) {
-	fileCreatedNginxHstV := `set $go_web_port  ` + strconv.FormatUint(uint64(portNumber), 10) + `";`
+	fileCreatedNginxHstV := `set $go_web_port  ` + strconv.FormatUint(uint64(portNumber), 10) + `;`
 	Write(fileCreatedNginxHstV, "nginx.hsts.conf")
 }
 
@@ -86,7 +86,9 @@ WantedBy=multi-user.target"
 }
 
 func serviceRun(portNumber int64, serviceName, domainName, userName string) {
-	serviceCreatedUbuntuV := `workingfolder="/home/` + userName + `/web/` + domainName + `/public_html/"
+	serviceCreatedUbuntuV := `#!/bin/bash
+
+workingfolder="/home/` + userName + `/web/` + domainName + `/public_html/"
 
 cd $workingfolder
 

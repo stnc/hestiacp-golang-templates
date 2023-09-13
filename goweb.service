@@ -4,9 +4,9 @@ Description=goweb 9090
 Type=simple
 Restart=always
 RestartSec=5s
-EnvironmentFile=/home/admin/web/ert.com/public_html/.env
-ExecStart=/home/admin/web/ert.com/public_html/main
-WorkingDirectory=/home/admin/web/ert.com/public_html/
+EnvironmentFile=/home/selman/web/selman.com/public_html/.env
+ExecStart=/home/selman/web/selman.com/public_html/main
+WorkingDirectory=/home/selman/web/selman.com/public_html/
 
 [Install]
 WantedBy=multi-user.target" 

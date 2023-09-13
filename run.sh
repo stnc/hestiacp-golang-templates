@@ -1,20 +1,22 @@
-workingfolder="/home/admin/web/ert.com/public_html/"
+#!/bin/bash
+
+workingfolder="/home/admin/web/der.com/public_html/"
 
 cd $workingfolder
 
-echo "server: ert.com
+echo "server: der.com
 port: 9090
-service: ert.com" > /home/admin/web/ert.com/public_html/data.json
+service: der.com" > /home/admin/web/der.com/public_html/data.json
 
 chmod +rwx main
 
-systemctl enable goweb.service
+systemctl enable go.com.service
 
-systemctl start goweb
+systemctl start go.com
 
 sudo systemctl daemon-reload
 
-sudo systemctl restart goweb
+sudo systemctl restart go.com
 
 sudo systemctl restart nginx
 
