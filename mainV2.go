@@ -88,6 +88,7 @@ func ready() {
 	mkdir.serviceRun(portNumber, serviceName, domainName, userName)
 	mkdir.template("ssl")
 	mkdir.template("no")
+	mkdir.templateSSH()
 }
 func main() {
 	//prompt()
@@ -119,7 +120,6 @@ func (configuration *Config) ensureDir() error {
 			fmt.Println("Error making file read-only:", errs)
 			return errs
 		}
-
 		return nil
 	}
 
@@ -138,7 +138,6 @@ func (configuration *Config) ensureDir() error {
 }
 
 func (configuration *Config) fileCreatedNginxHst(portNumber int64) {
-
 	fileCreatedNginxHstV := `set $go_web_port  ` + strconv.FormatUint(uint64(portNumber), 10) + `;`
 	configuration.Write(fileCreatedNginxHstV, "nginx.hsts.conf")
 }
@@ -161,14 +160,25 @@ WantedBy=multi-user.target"
 	configuration.Write(serviceCreatedUbuntuV, serviceName+".service")
 
 }
+func (configuration *Config) templateSSH() {
+	serviceCreatedUbuntuV := `#!/bin/bash
+
+cp golang.tpl /usr/local/hestia/data/templates/web/nginx/php-fpm
+
+cp golang.stpl /usr/local/hestia/data/templates/web/nginx/php-fpm
+
+exit 0`
+
+	configuration.Write(serviceCreatedUbuntuV, "template.sh")
+}
 
 func (configuration *Config) serviceRun(portNumber int64, serviceName, domainName, userName string) {
 
 	serviceCreatedUbuntuV := `#!/bin/bash
 
-copy /home/` + userName + `/conf/web/` + domainName + ` nginx.hsts.conf
+cp /home/` + userName + `/conf/web/` + domainName + ` nginx.hsts.conf
 
-copy  /lib/systemd/system  ` + serviceName + `.service
+cp  /lib/systemd/system  ` + serviceName + `.service
 
 workingfolder="/home/` + userName + `/web/` + domainName + `/public_html/"
 
@@ -317,8 +327,8 @@ func (configuration *Config) Write(value, filename string) {
 	//https://linuxhint.com/create-file-golang/
 	//path := filepath.Join("home", "ubuntu", "workspace", "newfile.txt")
 
-	fmt.Println("chaa  " + configuration.mkdirFile)
-	path := filepath.Join(configuration.mkdirFile, filename)
+	fmt.Println("mkdirFile  " + configuration.mkdirFile)
+	path := filepath.Join("export", configuration.mkdirFile, filename)
 	fmt.Println(path)
 	f, err := os.Create(path)
 	if err != nil {
